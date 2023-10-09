@@ -1,0 +1,369 @@
+STM32-based Integrated UAV Air Monitoring System 
+Qihan Zhao∗ Wuhan University of Technology, Wuhan, China Pengbo Zhang Wuhan University of Technology, Wuhan, China Yong Chen Wuhan University of Technology, Wuhan, China 
+
+ABSTRACT 
+With the increasing severity of air pollution, it has become an urgent problem to conduct large-scale targeted detection of various evaluation indexes of air pollution degree.
+Based on the current status of air monitoring, this paper designs an integrated UAV air monitoring system based on STM32 by combining UAV technology with integrated MCU sensing and detection technology with high mobility and wide coverage.
+It can not only realize real-time air quality detection, but also reduce the cost and time of air detection.
+At the same time, the evaluation index can be sampled from the three-dimensional space, which has the advantages of fast sampling speed, good timeliness and high stability.
+基于STM32的集成无人机空气监测系统
+
+摘要：随着空气污染的日益严重，有必要对空气污染程度的各种评估指标进行大规模的有针对性检测。
+本文基于当前空气监测的现状，结合无人机技术和集成MCU感知与检测技术的高机动性与广覆盖性，设计了一种基于STM32的集成无人机空气监测系统。
+该系统不仅可以实现实时空气质量检测，还可以降低空气检测的成本和时间。
+同时，该系统可以从三维空间中采样评估指标，具有快速采样速度、良好的时效性和高稳定性的优点。
+
+CCS CONCEPTS 
+• Computer systems organization → Embedded and cyber- physical systems; Sensor networks.
+
+KEYWORDS 
+Air monitoring, STM32, Sensing detection, AD conversion, PID 
+
+ACM Reference Format: Qihan Zhao, Pengbo Zhang, and Yong Chen.2023.
+STM32-based Integrated UAV Air Monitoring System.
+In 2023 4th International Conference on Comput- ing, Networks and Internet of Things (CNIOT ’23), May 26–28, 2023, Xiamen, China.
+ACM, New York, NY, USA, 5 pages.
+https://doi.org/10.1145/3603781.3603921 
+
+1 INTRODUCTION In recent years, with the rapid development of our national econ- omy, air pollution has become a serious problem that all countries must face.
+It has become an important technical problem that all the indicators of the degree of air pollution are tested in stereo- scale.
+Along with the industrial exhaust emissions, the air nitrogen, sulfide and other corrosive gases and particulate matter content is increasing [1].
+
+CCS CONCEPTS • 计算机系统组织 → 嵌入式和物理网络系统；传感器网络。
+
+关键词 
+空气监测，STM32，传感检测，AD转换，PID 
+ACM参考格式：赵琪涵，张鹏波和陈勇。2023年。
+基于STM32的集成无人机空气监测系统。
+在2023年第四届计算化，网络和物联网国际会议（CNIOT'23）中，2023年5月26日至28日，中国厦门举行。
+ACM，美国纽约，纽约，5页。
+https://doi.org/10.1145/3603781.3603921 
+
+1 引言 近年来，随着我国经济的快速发展，空气污染已成为各国必须面临的严重问题。
+它已成为所有空气污染程度指标被立体测试的重要技术问题。
+随着工业排放物的排放，空气中的氮气、硫化物和其他腐蚀性气体以及颗粒物含量正在增加[1]。
+
+The main sources of air pollutants are industrial emissions, winter heating emissions, motor vehicle exhaust emis- sions, dust weather, construction dust, etc.
+The total concentration of pollutants in the north is higher than that in the south, and the content of pollutants varies with different regions and seasons.
+
+∗Corresponding author: z2993737597@163.com 
+Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page.
+Copyrights for components of this work owned by others than the author(s) must be honored.
+Abstracting with credit is permitted.
+To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee.
+Request permissions from permissions@acm.org.
+主要的空气污染物源包括工业排放、冬季供暖排放、机动车尾气排放、沙尘天气、建筑扬尘等。
+北方的污染物总浓度高于南方，污染物含量在不同地区和季节也有所不同。
+
+允许个人或课堂使用，可以制作或分发数字或纸质副本，但不得用于盈利或商业优势，并且副本必须带有本通知及在第一页上的全文引用。
+对于本作品中其他作者拥有版权的部分，必须予以尊重。
+允许带有署名的摘要。
+如果要进行复制、再出版、在服务器上发布或重新分发给列表，需要事先获得明确的许可和/或支付费用。
+请向permissions@acm.org申请权限。
+
+CNIOT ’23, May 26–28, 2023, Xiamen, China 
+© 2023 Copyright held by the owner/author(s).
+Publication rights licensed to ACM.
+ACM ISBN 979-8-4007-0070-5/23/05...$15.00 
+https://doi.org/10.1145/3603781.3603921 
+
+During winter heating, the concentration of PM10, PM2.5 and SO2 rose sharply due to the increase of coal burning in the Figure 1.
+At present, the air monitoring mainly includes portable man- ual detection device, fixed point base station detection and mobile monitoring points.
+However, the above three methods are mainly aimed at the air monitoring at lower levels.
+At the same time, they fluctuate greatly under the influence of environment and have low detection stability.
+Therefore, they cannot complete the overall de- tection of regional air.
+Currently, there are few sampling ports for the peripherals of air testing instruments, and only one kind of pollution gas is used for detection.
+
+CNIOT'23，2023年5月26日至28日，中国厦门，
+版权所有©2023年，版权所有者/作者。
+出版权已授权ACM。
+ACM ISBN 979-8-4007-0070-5/23/05。...15.00美元。
+https://doi.org/10.1145/3603781.3603921
+
+在冬季供暖期间，由于煤燃烧的增加，PM10、PM2.5和SO2的浓度急剧上升，如图1所示。
+目前，空气监测主要包括便携式手动检测设备、固定点基站检测和移动监测点。
+然而，上述三种方法主要针对低层次的空气监测，同时受环境影响波动很大，检测稳定性较低。
+因此，它们无法完成区域空气的整体检测。
+目前，空气测试仪器外围的取样口很少，并且只能用于检测一种污染气体。
+
+Therefore, comprehensive detec- tion of a wide range of various air pollution substances cannot be completed, and the flexibility is poor [2].
+Therefore, an integrated air detection system with high flexibility, wide coverage and strong mobility is urgently needed to solve the problem of increasingly se- rious air pollution.
+In 2014, EDC developed a HIM-6000 instrument that can simultaneously detect multiple gas contents.
+By setting dual detection ports, it uses replaceable external sensing probes to detect multiple pollution gases.
+In 2018, Yichang Company devel- oped SEM2000-M UAV environmental detection platform, which combines the remote sensing technology of UAV for emergency detection and air pollution detection.
+The environmental detection platform is equipped with wireless communication module to transmit detection data in real time to complete monitoring.
+因此，无法完成对各种空气污染物的全面检测，并且弹性差[2]。
+因此，迫切需要一种具有高度灵活性、广泛覆盖范围和强大机动性的综合空气检测系统来解决日益严重的空气污染问题。
+2014年，EDC开发了一种名为HIM-6000的仪器，可以同时检测多种气体成分。
+通过设置双重检测端口，它使用可更换的外部传感探头来检测多种污染气体。
+2018年，宜昌公司开发了SEM2000-M UAV环境检测平台，结合了无人机的遥感技术进行紧急检测和空气污染检测。
+该环境检测平台配备了无线通信模块，实时传输检测数据以完成监测。
+
+In 2019, a team at the University of Barcelona developed a nanocrafter equipped with an air probe that can detect indoor air through au- tonomous navigation [3-4].
+Based on the above status quo, a comprehensive air monitoring system based on STM32 is designed in this paper.
+Time division multiplexing transmission of various sensors is realized through single-chip peripheral IO port, and the air quality detection system installed on UAV is adopted.
+Compared with traditional air detection methods, the system can collect the air quality of any point in three- dimensional space [5].
+The spatial distribution characteristics of pollutants can be analyzed more comprehensively, accurately and conveniently.
+In terms of sensors, the sensor module is used to sample the main indicators of air pollutants.
+2019年，巴塞罗那大学的一个团队开发了一种装备有空气探针的纳米制造者，能够通过自主导航检测室内空气[3-4]。
+基于上述现状，本文设计了一种基于STM32的综合空气监测系统。
+通过单片机外设IO口实现各种传感器的时分复用传输，并采用安装在无人机上的空气质量检测系统。
+与传统的空气检测方法相比，该系统可以收集三维空间中任意点的空气质量[5]。
+污染物的空间分布特征可以更全面、准确、方便地进行分析。
+在传感器方面，传感器模块用于采样空气污染物的主要指标。
+
+Figure 1: Picture the air pollution situation 
+
+2 MONITORING SYSTEM DESIGN SCHEME 
+The integrated UAV air monitoring system based on STM32 mainly detects air pollution at different heights in real time and dynamically, and transmits the collected data of different evaluation indictors to the signal receiving end through the wireless transmission system.
+The system realizes the remote control real-time detection and dynamic display of different indicators of air monitoring values.
+At the same time, the attitude of the UAV is monitored and data is collected through the gyroscope sensor set by the system.
+The attitude of the UAV is obtained and the self-attitude adjustment can ensure the stable operation of the device.
+The following figure shows the schematic diagram of the monitoring system, which is mainly composed of the main control module, attitude sensing module, integrated sensing module and wireless communication module [6].
+
+788 CNIOT ’23, May 26–28, 2023, Xiamen, China Qihan Zhao et al.
+
+2 监测系统设计方案
+基于STM32的综合无人机空气监测系统主要实时、动态地检测不同高度的空气污染，并通过无线传输系统将不同评估指标的收集数据传输到信号接收端。
+该系统实现了对空气监测数值的不同指标的远程控制实时检测和动态显示。
+同时，通过系统设置的陀螺仪传感器监测并收集无人机姿态数据。
+获取无人机的姿态并进行自身姿态调整，以确保设备的稳定运行。
+以下图示为监测系统的框图，主要由主控模块、姿态感知模块、综合感知模块和无线通信模块组成[6]。
+
+Figure 2: Overall hardware block diagram
+图2：整体硬件框图
+
+Its monitoring system mainly includes the following parts: 
+• Main control module: mainly coordinates all modules of the whole system, accepts analog signals transmitted by different sampling modules for AD conversion, and controls the operation of the overall device to adjust the attitude of the UAV; 
+• Attitude detection and adjustment module: the current operating status of the UAV is obtained mainly through real-time signal detection of the UAV, and PWM wave generated by the main control module is accepted and adjusted by the control device to achieve the purpose of stabilizing the operation of the device; 
+• Integrated sensing module: It carries out cyclic sampling of a variety of pollution gases including PM2.5 through built-in high-frequency sampling, in which time division multiplexing technology is adopted to solve the occupation problem of STM32 parallel port.
+其监控系统主要包括以下部分：
+• 主控模块：主要协调整个系统的所有模块，接受不同采样模块传输的模拟信号进行AD转换，并控制整个设备的运行，调节无人机的姿态；
+• 姿态检测和调节模块：通过对无人机的实时信号检测，主控模块生成的PWM波被控制装置接受和调节，以实现设备运行的稳定；
+• 综合传感模块：通过内置的高频采样，对包括PM2.5在内的各种污染气体进行循环采样，采用时分复用技术解决了STM32并行接口占用的问题。
+
+Design When the UAV is used to monitor the air in the area block, the multi-sensor module will sample the gas in it, and the signal processing module will carry out AD conversion and serial communication input, so as to carry out data analysis and processing of the component data [7].
+The converted digital signal will be uploaded to the system terminal through the wireless communication module, and the terminal will realize data reception and analysis and processing.
+
+3 HARDWARE DESIGN SCHEME 
+The hardware part of the design mainly includes the microcontroller main control module, integrated sensing module, attitude sensing module.
+Which is controlled by STM32 as the main control, the control system of the multi-dimensional sensor signal acquisition, the sensor to the air for high-frequency sampling, which in view of the air signal needs to be monitored in real time, need to ensure that the sensor module and AD module signal transmission of the same frequency, to achieve efficient signal at [8-9].
+设计当无人机用于监测区域内的空气时，多传感器模块将对其中的气体进行取样，信号处理模块将进行AD转换和串行通信输入，以便进行组分数据的数据分析和处理[7]。
+转换后的数字信号将通过无线通信模块上传到系统终端，终端将实现数据接收、分析和处理。
+
+3 硬件设计方案
+该设计的硬件部分主要包括微控制器主控模块、集成传感器模块和姿态传感模块。
+其中，以STM32作为主控，控制系统对多维传感器信号进行采集，对从空气中采样的传感器进行高频率的采样，针对需要实时监测空气信号的特点，需要确保传感器模块和AD模块信号传输具有相同的频率，以实现高效的信号处理[8-9]。
+
+ At the same time, according to the 9-axis attitude angle sensor JY901 collected by the UAV operating status, to achieve multi-angle adjustment of the UAV operating attitude, the specific hardware design scheme is shown in Figure 2 below.
+ Figure 3: Diagram system design test system diagram 3.1 Main Control Module The main control module is mainly composed of the main control system and peripheral circuits.
+Its specific functions are as follows: The main control system reads and writes the data collected by the 9- axis attitude Angle sensor JY901 through the I2C bus, and transmits it to the remote control module for display and output through the communication module.
+At the same time, after receiving the adjustment signal, PWM wave can be generated and transmitted to the attitude detection and adjustment module to control the attitude of the UAV.
+The concept diagram of system design and detection is shown in Figure 3 below.
+与此同时，根据由无人机运行状态收集的9轴姿态角传感器JY901的数据，实现无人机操作姿态的多角度调整，具体的硬件设计方案如下图2所示。
+
+
+ 图3：系统设计测试系统图 3.1 主控模块 主控模块主要由主控系统和外围电路组成。
+其具体功能如下：主控系统通过I2C总线读取和写入由9轴姿态角传感器JY901收集的数据，并通过通信模块将其传输给遥控模块进行显示和输出。
+同时，在接收到调整信号后，可以生成PWM波并传输给姿态检测和调整模块，以控制无人机的姿态。
+系统设计和检测的概念图如下图3所示。
+
+ According to the above design requirements, STM32F103C8T6 is selected as the main control chip of the main control unit in this project.
+The working frequency of the chip is 72MHz, and the FLASH register of 512KB is included inside.
+789 STM32-based Integrated UAV Air Monitoring System CNIOT ’23, May 26–28, 2023, Xiamen, China Figure 4: Flow chart of MPU6050 reading data 3.2 Attitude detection module For the attitude detection module is mainly through the highly integrated attitude sensor to the UAV three inclination angle and acceleration measurement, taking into account the air environment may increase the integrated sensor error, magnetometer, GPS and other attitude detection components by the interference of magne- toelectricity and affect the reliability of its detection data[10].
+By comparing the basic parameters of the sensor gyroscope, the 9-axis attitude angle sensor JY901 sensor is selected as the actuator for collecting attitude data.
+根据上述设计要求，本项目的主控单元选择了STM32F103C8T6作为主控芯片。
+该芯片的工作频率为72MHz，内部包含512KB的FLASH寄存器。
+
+
+机载无人机空气监测系统基于STM32的CNIOT系统会议，2023年5月26日至28日，中国厦门图4：MPU6050读取数据的流程图。
+
+
+3.2姿态检测模块主要通过高度集成的姿态传感器对无人机的三个倾斜角度和加速度进行测量。
+考虑到空气环境可能增加集成传感器误差的情况，通过磁电干扰影响陀螺仪器、GPS等姿态检测组件，可能会影响其检测数据的可靠性[10]。
+通过比较传感器陀螺仪的基本参数，选择了9轴姿态角传感器JY901作为收集姿态数据的执行器。
+
+ MPU6050 sensor with its high sensitivity meets the design requirements, while its data interface supports different baud rate output, which can realize the high frequency collection and processing of sampled data and ensure the real-time dynamic display of UAV attitude data.
+Figure 4 below shows the flow chart of the MPU6050 sensor reading data.
+3.3 Communication Module The data transmission of the STM32-based integrated UAV air mon- itoring system is mainly divided into two parts, namely data up- loading and data receiving.
+Data upload refers to uploading the collected environmental parameter data to the cloud platform via GSM module, while data reception refers to wireless communica- tion with the UAV through the ground station to realize real-time monitoring and control of the data.
+3.
+MPU6050传感器具有高灵敏度，满足设计要求，而其数据接口支持不同的波特率输出，可以实现采样数据的高频率采集和处理，并确保实时动态显示无人机姿态数据。
+下图4显示了MPU6050传感器读取数据的流程图。
+3.3通信模块 基于STM32的综合无人机空气监测系统的数据传输主要分为两部分，即数据上传和数据接收。
+数据上传是指通过GSM模块将收集的环境参数数据上传到云平台，而数据接收是指通过地面站与无人机进行无线通信，实现对数据的实时监控和控制。
+3.
+4 Attitude adjustment PID control system This paper presents an unmanned aircraft system based on series- level PID control, which uses a position controller and a speed controller working in series, the output of the outer-loop PID posi- tion controller as the expected value of the inner-loop PID speed controller, and the PWM duty cycle controlled by the output of the inner-loop PID speed controller to achieve accurate control of the UAV position and speed.
+The system also includes a balance position stabilization control system, which monitors the angle between the UAV balance position and vertical direction through the MPU6050 attitude sensor, and uses a differential control system to assist the balance position stabilization control system to reduce overshoot errors.
+In addition, the system includes a PID motion control system to control the speed of the UAV through proportional and integral control to maintain the stability of the UAV.
+4态度调整PID控制系统 本文提出了一个基于级联PID控制的无人机系统，该系统采用位置控制器和速度控制器串联工作，将外环PID位置控制器的输出作为内环PID速度控制器的期望值，并通过内环PID速度控制器输出来控制PWM占空比，以实现对无人机位置和速度的精确控制。
+该系统还包括一个平衡位置稳定控制系统，通过MPU6050姿态传感器监测无人机平衡位置与垂直方向之间的角度，并采用差分控制系统辅助平衡位置稳定控制系统，以减小超调误差。
+此外，该系统还包括一个PID运动控制系统，通过比例和积分控制来控制无人机的速度，以保持无人机的稳定性。
+
+ The application of this system in the integrated UAV air monitoring system can achieve efficient and accurate control results.
+The structure of the specific carrier UAV part is shown in Figure 5 below.
+(1) PID motion control system Figure 5: Schematic diagram of the structure of the carrier drone part Path movement is integrated UAV air monitoring system for a long time need to maintain the state, in the process of carrying out the movement needs to ensure the overall UAV stability, while needing to identify their own path, in the process of path movement and will not have a change in the state of movement.
+该系统在综合无人机空中监测系统中的应用可以实现高效准确的控制结果。
+具体载体无人机部分的结构如下图5所示。
+（1）PID运动控制系统图5：载体无人机部分结构示意图路径移动是综合无人机空中监测系统需要长时间保持的状态，在进行移动过程中需要确保整个无人机的稳定性，同时需要识别自身路径，在路径移动过程中不会发生状态变化。
+
+ 𝑈𝑑 = 𝐾𝑃 2 · 𝑒 (𝑣) (1) where 𝐾𝑃 : the speed proportionality constant of this part of the PI control system And then given that the motion state and tendency do not change during the path operation, so it does not bring a large fluctuation value during the operation, the system expectation deviation only depends on the external environmental factors, the system input side to introduce integral control to reduce the steady-state error, then.
+𝑡 ∫ 0 where 𝐾𝑖 : the integration constant of the speed system controller.
+From the above calculations can be obtained in this control system, the control system stability of the PI control system stability logic block diagram is shown in Figure 6, where𝑉𝐿 ,𝑉𝑅 are the left and right motor speed values obtained from the coded data sensor monitoring.
+𝑈𝑑 = 𝐾𝑃 2 · 𝑒 (𝑣) (1)
+根据上述公式，𝑈𝑑表示为 𝐾𝑃 乘以 𝑒 的平方，其中 𝐾𝑃 是 PI 控制系统的速度比例常数。
+接着，由于在路径运行过程中运动状态和趋势不发生变化，因此在操作过程中不会带来大的波动值，系统期望偏差仅取决于外部环境因素，系统输入端引入积分控制以减小稳态误差。
+𝑡 ∫ 0 这里，𝐾𝑖 是速度系统控制器的积分常数。
+通过以上计算，可以得到控制系统的稳定性逻辑阻止图如图 6 所示，其中 𝑉𝐿 和 𝑉𝑅 是从编码数据传感器监测到的左侧和右侧电机速度值。
+
+ 𝑈𝑑 = 𝐾𝑖 𝑒 (𝑣) d𝑡 (2) This PI control system regulates the speed of the integrated UAV air monitoring system by superimposing the drive voltage obtained from the initial speed of the input quantity through proportional and integral operations, and then converting it into the duty cycle of the PWM control signal through the master control system.
+(2) Balance position stability control system In this project, the angle between the UAV balance position and the vertical direction is monitored by the MPU6050 attitude sensor.
+When the integrated UAV air monitoring system is tilted due to 790 CNIOT ’23, May 26–28, 2023, Xiamen, China Qihan Zhao et al.
+Figure 6: Design of PI control system for linear motion Table 1: PID coefficient setting table Closed loop Motor EM1 Speed ring Motor EM2 Speed ring Motor EM3 Speed ring Motor EM4 Speed ring P 3.374 3.4842 3.152 3.1231 I 3.5162 3.4120 3.601 3.5124 D 0.0179 0.0181 0.0165 0.
+𝑈𝑑 = 𝐾𝑖 𝑒 (𝑣) d𝑡 (2) 这个PI控制系统通过比例和积分运算将输入量的初速度得到的驱动电压叠加，然后通过主控制系统将其转换为PWM控制信号的占空比，从而调节集成的无人机空气监测系统的速度。
+(2) 平衡位置稳定控制系统在这个项目中，通过MPU6050姿态传感器监测无人机平衡位置与垂直方向之间的角度。
+当集成的无人机空气监测系统由于790 CNIOT '23于2023年5月26日-28日在中国厦门举办会议时出现倾斜时，进行控制和稳定。
+Qihan Zhao等人图6：线性运动PI控制系统设计表1：PID系数设置表闭环电机EM1速度环电机EM2速度环电机EM3速度环电机EM4速度环P 3.374 3.4842 3.152 3.1231 I 3.5162 3.4120 3.601 3.5124 D 0.0179 0.0181 0.0165 0.
+01846 motion and external human factors, the rotor assumes clockwise rotation and the rotor is then subjected to reverse torque F, causing the UAS to tilt.
+For a smaller tilt, a motor drive module is required to provide recovery force to the balance drive motor 𝐹1 to keep the UAV upright.
+The repulsion force provided by the motor drive is proportional to the maximum tilt deviation during tilting of the device, which is related to: 𝐹1 = 𝐾𝑃 · 𝑒 (𝜃 ) (3) where 𝐾𝑃 is the proportionality constant of the equilibrium position stabilized proportional differential control system.
+01846 运动和外部人为因素使得转子顺时针旋转，随后转子受到反向扭矩 𝐹 的作用，导致无人机倾斜。
+为了减小倾斜，需要一个电机驱动模块来为平衡驱动电机 𝐹1 提供恢复力，以保持无人机直立。
+电机驱动提供的排斥力与设备倾斜过程中的最大倾斜偏差成正比，与以下相关：𝐹1 = 𝐾𝑃 · 𝑒 (𝜃 ) (3)，其中 𝐾𝑃 是保持平衡的比例微分控制系统的比例常数。
+
+ However, when the system receives a large external influence, resulting in a large error in the drive voltage and desired torque, it will make the system reply force applied lagging resulting in a large overshoot error, in this part of the design using differential D control system, so that it introduces a damping force proportional to the speed and desired torque and opposite to the reply force 𝐹𝑓 2 That is: 𝐹𝑓 = 𝐾𝑑 d𝑒 (𝜃 ) d𝑡 (4) where 𝐾𝑑 is the differential constant of the equilibrium position stabilized PD control system.
+Thus there is: 𝐹2 = F + 𝐹𝑓 = 𝐾𝑃 · 𝑒 (𝜃 ) + 𝐾𝑑 d𝑒 (𝜃 ) d𝑡 (5) The timing system control period set by the system module is 20ms.
+after system modeling and several practical tests, the PID coefficients finally selected for this system are shown in Table 1, where the left and right motors are driven at different times and torques for stabilization, straight ahead and steering, and the corresponding coefficients are set respectively.
+3.
+然而，当系统受到大的外部影响时，驱动电压和期望扭矩出现较大误差，系统会产生滞后的响应力，导致较大的超调误差，在设计的这一部分中使用差分D控制系统，使其引入与速度和期望扭矩成比例且与响应力相反的阻尼力𝐹𝑓。
+即：𝐹𝑓 = 𝐾𝑑 d𝑒 (𝜃 ) / d𝑡 (4)，其中𝐾𝑑是平衡位置稳定PD控制系统的差分常数。
+因此有：𝐹2 = F + 𝐹𝑓 = 𝐾𝑃 · 𝑒 (𝜃 ) + 𝐾𝑑 d𝑒 (𝜃 ) / d𝑡 (5)。
+系统模块设置的定时控制周期为20毫秒。
+经过系统建模和多次实际测试，最终选择了该系统的PID系数如表1所示，其中左右电机在不同时间和扭矩下用于稳定、直行和转向，并分别设置了相应的系数。
+
+5 Overall software design The system threshold is set according to the normal value range of different assessment indexes, which is achieved by setting the Figure 7: Block diagram design of the upper computer pro- gram criteria of different assessment indexes.
+CO and SO2 are used as pollution gas detection objects, and the alarm threshold of the system is set to 30010-6.
+When the gas volume fraction reaches 10010-6, the system starts to detect the presence of pollution gas and displays the pollution gas concentration information at the terminal display in real time; when the pollution gas volume fraction exceeds 30010-6, the alarm light starts to light up and the data is prompted by GSM communication The data is stored.
+The following figure shows the display and alarm of the terminal in the simulated situation.
+5整体软件设计系统阈值根据不同评估指标的正常值范围来设置，这是通过设置不同评估指标的上位计算机程序的要求来实现的。
+CO和SO2被用作污染气体检测对象，系统的报警阈值设置为30010-6。
+当气体体积分数达到10010-6时，系统开始检测污染气体的存在，并实时显示终端显示器上的污染气体浓度信息；当污染气体体积分数超过30010-6时，报警灯开始亮起，并通过GSM通信提示数据。
+下图显示了模拟情况下终端的显示和报警情况。
+
+ The interactive interface of the terminal can display the current fluctuation of the pollutant gas, and the line graph can clearly show the change of the pollutant gas concentration in different areas during the air detection process.
+The specific monitoring interface is shown in Figure 7.
+As can be seen from Figure 8 below, in order to ensure the normal communication between the upper computer and the lower computer, we first need to configure the VISA protocol and the 791 STM32-based Integrated UAV Air Monitoring System CNIOT ’23, May 26–28, 2023, Xiamen, China regions and height of the air pollution situation through the graph to display, the system specific monitoring effect is shown in Figure 9(right).
+5 CONCLUSION This paper designs an integrated pollution and air monitoring sys- tem based on STM32 according to the current air detection problems.
+终端的交互界面可以显示污染气体的当前波动，并且折线图可以清楚地展示空气检测过程中不同区域内污染气体浓度的变化。
+具体的监测界面如图7所示。
+如下图8所示，为了确保上位机与下位机之间的正常通信，我们首先需要配置VISA协议和基于STM32的综合型无人机空气监测系统CNIOT '23，2023年5月26日至28日，中国厦门地区和空气污染情况的高度，通过图形展示，系统具体监测效果如图9（右侧）所示。
+ 结论：本文根据当前的空气检测问题，设计了一种基于STM32的综合污染和空气监测系统。
+
+ The system designs an integrated multi-pollution index air moni- toring system, which can complete the high-precision detection of a variety of air pollution gases.
+By carrying the air detection system on the UAV, the monitoring of air pollution at different heights can be realized with high flexibility and stability.
+The detected data of different air pollution indicators can be transmitted to the PC through the wireless transmission system.
+It can be visually con- verted into a two-dimensional graph for analysis and processing.
+The curve of air pollution gas concentration change after treatment can be viewed in the remote computer upper computer.
+The recent fluctuation of pollution gas concentration can be viewed through the terminal upper computer and the current type and specific concentration of pollution gas can be displayed at the same time, which has a good application prospect.
+该系统设计了一个综合多污染指数空气监测系统，可以对多种空气污染气体进行高精度检测。
+通过将空气检测系统搭载在无人机上，可以实现对不同高度的空气污染进行高度灵活和稳定的监测。
+不同空气污染指标的检测数据可以通过无线传输系统传输到电脑上。
+可以将其可视化为二维图进行分析和处理。
+治理后的空气污染气体浓度变化曲线可以在远程电脑上查看。
+通过终端上位机可以查看污染气体浓度的近期波动，并同时显示当前污染气体的类型和具体浓度，具有广阔的应用前景。
+
+ ACKNOWLEDGMENTS This research was supported by Independent Innovation Research Fund Project of Wuhan University of Technology (Fund number: 236805007) REFERENCES [1] WANG Shiyu.
+Research on Information Collection and Trajectory Planning Strategy of UAV Based on Aerodynamics [J].
+Beijing university of posts and telecommunications, 2021.
+[2] XU X L.
+Design and implementation of air quality detection system based on UAV [J].
+Xiking school, 2020.
+[3] YAO X M.
+Real-time monitoring technology and system of air CO2 concentra- tion based on unmanned aerial vehicle [J].
+Northwest agriculture and forestry university of science and technology, 2020.
+[4] Xie L H.
+Air Pollution source location technology and experimental research based on unmanned aerial vehicle [J].
+China university of measurement, 2020.
+[5] XIE Tao.
+Design of Multi-parameter Air Quality Detection System Based on Four-rotor UAV [J].
+Anhui University of Science and Technology,2019.
+[6] Chen H S.
+Research and application of PM_ (2.
+鉴谢
+本研究得到了武汉理工大学自主创新研究基金项目的支持（基金编号：236805007）。
+
+
+参考文献
+[1] 王世宇。
+基于空气动力学的无人机信息采集与轨迹规划策略研究[J]。
+北京邮电大学，2021。
+
+[2] 徐晓亮。
+基于无人机的空气质量检测系统设计与实现[J]。
+西京学校，2020。
+
+[3] 姚秀梅。
+基于无人机的空气CO2浓度实时监测技术与系统[J]。
+西北农林科技大学，2020。
+
+[4] 谢立辉。
+基于无人机的空气污染源定位技术及实验研究[J]。
+中国计量大学，2020。
+
+[5] 谢涛。
+基于四旋翼无人机的多参数空气质量检测系统设计[J]。
+安徽科技学院，2019。
+
+[6] 陈洪生。
+PM2.
+5) and its precursors concentration monitoring system based on UAV [J].
+China university of measurement, 2019.
+[7] YAN Fenfen.
+Research and Design of Environmental Air Detection Device based on quadrotor aircraft [J].
+Tianjin University of Technology,2016.
+[8] LIU W F.
+Application of real-time database in air quality automatic monitoring system [J].
+Huazhong University of Science and Technology,2015.
+[9] DENG Tuo.
+Design of Wireless Sensor Network for Indoor Air Monitoring [J].
+Wuhan University of Technology,2015.
+[10] Yu Kesheng.
+Research on Indoor Air Monitoring System Based on Embedded Linux [J].
+Huazhong University of Science and Technology,2013.
+Figure 8: Serial port reading serial port control, and set the corresponding parameters, including baud rate, serial port number, number of bits sent, stop bit and parity bit.
+At the same time, in order to improve the stability of the serial port reading data, each time the program is executed, the above parameters are assigned initial values.
+5) 基于无人机的前体气体浓度监测系统[J]。
+中国计量大学，2019年。
+[7] 闫芬芬。
+基于四旋翼飞行器的环境空气检测装置的研究与设计[J]。
+天津理工大学，2016年。
+[8] 刘伟峰。
+实时数据库在空气质量自动监测系统中的应用[J]。
+华中科技大学，2015年。
+[9] 邓拓。
+室内空气监测无线传感器网络的设计[J]。
+武汉理工大学，2015年。
+[10] 于克胜。
+基于嵌入式Linux的室内空气监测系统研究[J]。
+华中科技大学，2013年。
+ 图8：串口读取串口控制，并设置相应的参数，包括波特率，串口号，发送位数，停止位和校验位。
+同时，为了提高串口读取数据的稳定性，每次执行程序时，上述参数都被赋予初始值。
+
+ The serial port read control needs to be configured to set the number of accepted bytes to 8 bits in order to receive the value of int type sent by the microcontroller.
+Finally, the read data is stored in the read buffer and output to the next link.
+4 SYSTEM VALIDATION Through system design, monitoring parameters can be selected according to actual requirements, such as TSP, PM2.5, PM10 and other particulate matter parameters and CO, O3, SO2, NO2, VOC and other gas parameters.
+Meanwhile, STM32’s integrated UAV air monitoring system can detect height, location, pollutant distribu- tion concentration and other data.
+At the same time, the monitoring system is convenient in operation, accurate in measurement, reli- able in operation, light in volume and small in size, which provides an effective monitoring means for the analysis of air quality in three- dimensional space.
+The implementation scheme of this system is shown in Figure 9(left).
+串口读取控制需要进行配置，将接受的字节数设置为8位，以便接收微控制器发送的int类型值。
+最后，读取的数据存储在读取缓冲区，并输出到下一个链接。
+4 系统验证通过系统设计，可以根据实际需求选择监测参数，如TSP、PM2.5、PM10和其他颗粒物参数，以及CO、O3、SO2、NO2、VOC和其他气体参数。
+同时，STM32集成的无人机空气监测系统可以检测高度、位置、污染物分布浓度等数据。
+同时，该监测系统操作方便、测量准确、可靠运行、体积轻小，为三维空间内的空气质量分析提供了有效的监测手段。
+该系统的实施方案如图9（左）所示。
+
+ First, the designated monitoring area is se- lected and the pollution gas is monitored by the monitoring system carried by the UAV.
+The monitoring data is transmitted wirelessly through the GSM communication system to ensure the stability, accuracy and real-time performance of the system transmission.
+首先，选择指定的监测区域，并通过无人机携带的监测系统监测污染气体。
+监测数据通过GSM通信系统进行无线传输，以确保系统传输的稳定性、准确性和实时性。
+
