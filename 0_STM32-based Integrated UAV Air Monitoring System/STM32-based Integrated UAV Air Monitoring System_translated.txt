@@ -178,16 +178,14 @@ The working frequency of the chip is 72MHz, and the FLASH register of 512KB is i
 Figure 4: Flow chart of MPU6050 reading data 
 图4：MPU6050读取数据的流程图。
 
-3.2 Attitude detection module For the attitude detection module is mainly through the highly integrated attitude sensor to the UAV three inclination angle and acceleration measurement, taking into account the air environment may increase the integrated sensor error, magnetometer, GPS and other attitude detection components by the interference of magne- toelectricity and affect the reliability of its detection data[10].
+3.2 Attitude detection module 
+For the attitude detection module is mainly through the highly integrated attitude sensor to the UAV three inclination angle and acceleration measurement, taking into account the air environment may increase the integrated sensor error, magnetometer, GPS and other attitude detection components by the interference of magne- toelectricity and affect the reliability of its detection data[10].
 By comparing the basic parameters of the sensor gyroscope, the 9-axis attitude angle sensor JY901 sensor is selected as the actuator for collecting attitude data.
 根据上述设计要求，本项目的主控单元选择了STM32F103C8T6作为主控芯片。
 该芯片的工作频率为72MHz，内部包含512KB的FLASH寄存器。
 
-
-
-
-
-3.2姿态检测模块主要通过高度集成的姿态传感器对无人机的三个倾斜角度和加速度进行测量。
+3.2姿态检测模块
+主要通过高度集成的姿态传感器对无人机的三个倾斜角度和加速度进行测量。
 考虑到空气环境可能增加集成传感器误差的情况，通过磁电干扰影响陀螺仪器、GPS等姿态检测组件，可能会影响其检测数据的可靠性[10]。
 通过比较传感器陀螺仪的基本参数，选择了9轴姿态角传感器JY901作为收集姿态数据的执行器。
 
