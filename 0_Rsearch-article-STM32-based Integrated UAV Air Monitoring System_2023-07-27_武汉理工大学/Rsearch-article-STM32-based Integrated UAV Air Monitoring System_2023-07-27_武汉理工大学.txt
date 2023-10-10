@@ -179,7 +179,7 @@ Figure 4: Flow chart of MPU6050 reading data
 图4：MPU6050读取数据的流程图。
 
 3.2 Attitude detection module 
-For the attitude detection module is mainly through the highly integrated attitude sensor to the UAV three inclination angle and acceleration measurement, taking into account the air environment may increase the integrated sensor error, magnetometer, GPS and other attitude detection components by the interference of magne- toelectricity and affect the reliability of its detection data[10].
+For the attitude detection module is mainly through the highly integrated attitude sensor to the UAV three inclination angle and acceleration measurement, taking into account the air environment may increase the integrated sensor error, magnetometer, GPS and other attitude detection components by the interference of magnetoelectricity and affect the reliability of its detection data[10].
 By comparing the basic parameters of the sensor gyroscope, the 9-axis attitude angle sensor JY901 sensor is selected as the actuator for collecting attitude data.
 根据上述设计要求，本项目的主控单元选择了STM32F103C8T6作为主控芯片。
 该芯片的工作频率为72MHz，内部包含512KB的FLASH寄存器。
@@ -189,13 +189,16 @@ By comparing the basic parameters of the sensor gyroscope, the 9-axis attitude a
 考虑到空气环境可能增加集成传感器误差的情况，通过磁电干扰影响陀螺仪器、GPS等姿态检测组件，可能会影响其检测数据的可靠性[10]。
 通过比较传感器陀螺仪的基本参数，选择了9轴姿态角传感器JY901作为收集姿态数据的执行器。
 
- MPU6050 sensor with its high sensitivity meets the design requirements, while its data interface supports different baud rate output, which can realize the high frequency collection and processing of sampled data and ensure the real-time dynamic display of UAV attitude data.
+MPU6050 sensor with its high sensitivity meets the design requirements, while its data interface supports different baud rate output, which can realize the high frequency collection and processing of sampled data and ensure the real-time dynamic display of UAV attitude data.
 Figure 4 below shows the flow chart of the MPU6050 sensor reading data.
-3.3 Communication Module The data transmission of the STM32-based integrated UAV air mon- itoring system is mainly divided into two parts, namely data up- loading and data receiving.
+
+3.3 Communication Module 
+The data transmission of the STM32-based integrated UAV air monitoring system is mainly divided into two parts, namely data up- loading and data receiving.
 Data upload refers to uploading the collected environmental parameter data to the cloud platform via GSM module, while data reception refers to wireless communica- tion with the UAV through the ground station to realize real-time monitoring and control of the data.
-3.
+
 MPU6050传感器具有高灵敏度，满足设计要求，而其数据接口支持不同的波特率输出，可以实现采样数据的高频率采集和处理，并确保实时动态显示无人机姿态数据。
 下图4显示了MPU6050传感器读取数据的流程图。
+
 3.3通信模块 基于STM32的综合无人机空气监测系统的数据传输主要分为两部分，即数据上传和数据接收。
 数据上传是指通过GSM模块将收集的环境参数数据上传到云平台，而数据接收是指通过地面站与无人机进行无线通信，实现对数据的实时监控和控制。
 3.
