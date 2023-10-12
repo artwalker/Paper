@@ -193,87 +193,166 @@ MPU6050 sensor with its high sensitivity meets the design requirements, while it
 Figure 4 below shows the flow chart of the MPU6050 sensor reading data.
 
 3.3 Communication Module 
-The data transmission of the STM32-based integrated UAV air monitoring system is mainly divided into two parts, namely data up- loading and data receiving.
-Data upload refers to uploading the collected environmental parameter data to the cloud platform via GSM module, while data reception refers to wireless communica- tion with the UAV through the ground station to realize real-time monitoring and control of the data.
+The data transmission of the STM32-based integrated UAV air monitoring system is mainly divided into two parts, namely data uploading and data receiving.
+Data upload refers to uploading the collected environmental parameter data to the cloud platform via GSM module, while data reception refers to wireless communication with the UAV through the ground station to realize real-time monitoring and control of the data.
 
 MPU6050传感器具有高灵敏度，满足设计要求，而其数据接口支持不同的波特率输出，可以实现采样数据的高频率采集和处理，并确保实时动态显示无人机姿态数据。
 下图4显示了MPU6050传感器读取数据的流程图。
 
-3.3通信模块 基于STM32的综合无人机空气监测系统的数据传输主要分为两部分，即数据上传和数据接收。
+3.3通信模块 
+基于STM32的综合无人机空气监测系统的数据传输主要分为两部分，即数据上传和数据接收。
 数据上传是指通过GSM模块将收集的环境参数数据上传到云平台，而数据接收是指通过地面站与无人机进行无线通信，实现对数据的实时监控和控制。
-3.
-4 Attitude adjustment PID control system This paper presents an unmanned aircraft system based on series- level PID control, which uses a position controller and a speed controller working in series, the output of the outer-loop PID posi- tion controller as the expected value of the inner-loop PID speed controller, and the PWM duty cycle controlled by the output of the inner-loop PID speed controller to achieve accurate control of the UAV position and speed.
+
+3.4 Attitude adjustment PID control system 
+This paper presents an unmanned aircraft system based on serieslevel PID control, which uses a position controller and a speed controller working in series, the output of the outer-loop PID position controller as the expected value of the inner-loop PID speed controller, and the PWM duty cycle controlled by the output of the inner-loop PID speed controller to achieve accurate control of the UAV position and speed.
 The system also includes a balance position stabilization control system, which monitors the angle between the UAV balance position and vertical direction through the MPU6050 attitude sensor, and uses a differential control system to assist the balance position stabilization control system to reduce overshoot errors.
 In addition, the system includes a PID motion control system to control the speed of the UAV through proportional and integral control to maintain the stability of the UAV.
-4态度调整PID控制系统 本文提出了一个基于级联PID控制的无人机系统，该系统采用位置控制器和速度控制器串联工作，将外环PID位置控制器的输出作为内环PID速度控制器的期望值，并通过内环PID速度控制器输出来控制PWM占空比，以实现对无人机位置和速度的精确控制。
+3.4 态度调整PID控制系统 
+本文提出了一个基于级联PID控制的无人机系统，该系统采用位置控制器和速度控制器串联工作，将外环PID位置控制器的输出作为内环PID速度控制器的期望值，并通过内环PID速度控制器输出来控制PWM占空比，以实现对无人机位置和速度的精确控制。
 该系统还包括一个平衡位置稳定控制系统，通过MPU6050姿态传感器监测无人机平衡位置与垂直方向之间的角度，并采用差分控制系统辅助平衡位置稳定控制系统，以减小超调误差。
 此外，该系统还包括一个PID运动控制系统，通过比例和积分控制来控制无人机的速度，以保持无人机的稳定性。
 
- The application of this system in the integrated UAV air monitoring system can achieve efficient and accurate control results.
+The application of this system in the integrated UAV air monitoring system can achieve efficient and accurate control results.
 The structure of the specific carrier UAV part is shown in Figure 5 below.
-(1) PID motion control system Figure 5: Schematic diagram of the structure of the carrier drone part Path movement is integrated UAV air monitoring system for a long time need to maintain the state, in the process of carrying out the movement needs to ensure the overall UAV stability, while needing to identify their own path, in the process of path movement and will not have a change in the state of movement.
+
+(1) PID motion control system 
+Path movement is integrated UAV air monitoring system for a long time need to maintain the state, in the process of carrying out the movement needs to ensure the overall UAV stability, while needing to identify their own path, in the process of path movement and will not have a change in the state of movement.
 该系统在综合无人机空中监测系统中的应用可以实现高效准确的控制结果。
 具体载体无人机部分的结构如下图5所示。
-（1）PID运动控制系统图5：载体无人机部分结构示意图路径移动是综合无人机空中监测系统需要长时间保持的状态，在进行移动过程中需要确保整个无人机的稳定性，同时需要识别自身路径，在路径移动过程中不会发生状态变化。
 
- 𝑈𝑑 = 𝐾𝑃 2 · 𝑒 (𝑣) (1) where 𝐾𝑃 : the speed proportionality constant of this part of the PI control system And then given that the motion state and tendency do not change during the path operation, so it does not bring a large fluctuation value during the operation, the system expectation deviation only depends on the external environmental factors, the system input side to introduce integral control to reduce the steady-state error, then.
+Figure 5: Schematic diagram of the structure of the carrier drone part
+图5：载体无人机部分结构示意图
+
+（1）PID运动控制系统
+路径移动是综合无人机空中监测系统需要长时间保持的状态，在进行移动过程中需要确保整个无人机的稳定性，同时需要识别自身路径，在路径移动过程中不会发生状态变化。
+
+ 𝑈𝑑 = 𝐾𝑃 2 · 𝑒 (𝑣) (1) 
+where 𝐾𝑃 : the speed proportionality constant of this part of the PI control system And then given that the motion state and tendency do not change during the path operation, so it does not bring a large fluctuation value during the operation, the system expectation deviation only depends on the external environmental factors, the system input side to introduce integral control to reduce the steady-state error, then.
 𝑡 ∫ 0 where 𝐾𝑖 : the integration constant of the speed system controller.
 From the above calculations can be obtained in this control system, the control system stability of the PI control system stability logic block diagram is shown in Figure 6, where𝑉𝐿 ,𝑉𝑅 are the left and right motor speed values obtained from the coded data sensor monitoring.
 𝑈𝑑 = 𝐾𝑃 2 · 𝑒 (𝑣) (1)
 根据上述公式，𝑈𝑑表示为 𝐾𝑃 乘以 𝑒 的平方，其中 𝐾𝑃 是 PI 控制系统的速度比例常数。
 接着，由于在路径运行过程中运动状态和趋势不发生变化，因此在操作过程中不会带来大的波动值，系统期望偏差仅取决于外部环境因素，系统输入端引入积分控制以减小稳态误差。
-𝑡 ∫ 0 这里，𝐾𝑖 是速度系统控制器的积分常数。
+𝑡 ∫ 0 
+这里，𝐾𝑖 是速度系统控制器的积分常数。
 通过以上计算，可以得到控制系统的稳定性逻辑阻止图如图 6 所示，其中 𝑉𝐿 和 𝑉𝑅 是从编码数据传感器监测到的左侧和右侧电机速度值。
 
- 𝑈𝑑 = 𝐾𝑖 𝑒 (𝑣) d𝑡 (2) This PI control system regulates the speed of the integrated UAV air monitoring system by superimposing the drive voltage obtained from the initial speed of the input quantity through proportional and integral operations, and then converting it into the duty cycle of the PWM control signal through the master control system.
-(2) Balance position stability control system In this project, the angle between the UAV balance position and the vertical direction is monitored by the MPU6050 attitude sensor.
-When the integrated UAV air monitoring system is tilted due to 790 CNIOT ’23, May 26–28, 2023, Xiamen, China Qihan Zhao et al.
-Figure 6: Design of PI control system for linear motion Table 1: PID coefficient setting table Closed loop Motor EM1 Speed ring Motor EM2 Speed ring Motor EM3 Speed ring Motor EM4 Speed ring P 3.374 3.4842 3.152 3.1231 I 3.5162 3.4120 3.601 3.5124 D 0.0179 0.0181 0.0165 0.
-𝑈𝑑 = 𝐾𝑖 𝑒 (𝑣) d𝑡 (2) 这个PI控制系统通过比例和积分运算将输入量的初速度得到的驱动电压叠加，然后通过主控制系统将其转换为PWM控制信号的占空比，从而调节集成的无人机空气监测系统的速度。
-(2) 平衡位置稳定控制系统在这个项目中，通过MPU6050姿态传感器监测无人机平衡位置与垂直方向之间的角度。
-当集成的无人机空气监测系统由于790 CNIOT '23于2023年5月26日-28日在中国厦门举办会议时出现倾斜时，进行控制和稳定。
-Qihan Zhao等人图6：线性运动PI控制系统设计表1：PID系数设置表闭环电机EM1速度环电机EM2速度环电机EM3速度环电机EM4速度环P 3.374 3.4842 3.152 3.1231 I 3.5162 3.4120 3.601 3.5124 D 0.0179 0.0181 0.0165 0.
-01846 motion and external human factors, the rotor assumes clockwise rotation and the rotor is then subjected to reverse torque F, causing the UAS to tilt.
+ 𝑈𝑑 = 𝐾𝑖 𝑒 (𝑣) d𝑡 (2) 
+ 
+This PI control system regulates the speed of the integrated UAV air monitoring system by superimposing the drive voltage obtained from the initial speed of the input quantity through proportional and integral operations, and then converting it into the duty cycle of the PWM control signal through the master control system.
+(2) Balance position stability control system 
+In this project, the angle between the UAV balance position and the vertical direction is monitored by the MPU6050 attitude sensor.
+When the integrated UAV air monitoring system is tilted due to motion and external human factors, the rotor assumes clockwise rotation and the rotor is then subjected to reverse torque F, causing the UAS to tilt.
 For a smaller tilt, a motor drive module is required to provide recovery force to the balance drive motor 𝐹1 to keep the UAV upright.
-The repulsion force provided by the motor drive is proportional to the maximum tilt deviation during tilting of the device, which is related to: 𝐹1 = 𝐾𝑃 · 𝑒 (𝜃 ) (3) where 𝐾𝑃 is the proportionality constant of the equilibrium position stabilized proportional differential control system.
-01846 运动和外部人为因素使得转子顺时针旋转，随后转子受到反向扭矩 𝐹 的作用，导致无人机倾斜。
+
+
+Closed loop Motor EM1 Speed ring Motor EM2 Speed ring Motor EM3 Speed ring Motor EM4 Speed ring P 3.374 3.4842 3.152 3.1231 I 3.5162 3.4120 3.601 3.5124 D 0.0179 0.0181 0.0165 0.
+𝑈𝑑 = 𝐾𝑖 𝑒 (𝑣) d𝑡 (2) 
+
+这个PI控制系统通过比例和积分运算将输入量的初速度得到的驱动电压叠加，然后通过主控制系统将其转换为PWM控制信号的占空比，从而调节集成的无人机空气监测系统的速度。
+(2) 平衡位置稳定控制系统
+在这个项目中，通过MPU6050姿态传感器监测无人机平衡位置与垂直方向之间的角度。
+当集成的无人机空气监测系统由于运动和外部人为因素倾斜时，旋翼会产生顺时针旋转，并且旋翼会受到反向扭矩F的作用，导致无人机倾斜。
 为了减小倾斜，需要一个电机驱动模块来为平衡驱动电机 𝐹1 提供恢复力，以保持无人机直立。
+
+Figure 6: Design of PI control system for linear motion
+图6：线性运动PI控制系统设计
+Table 1: PID coefficient setting table
+表1：PID系数设置表
+
+闭环 电机EM1速度环 电机EM2速度环 电机EM3速度环 电机EM4速度环
+
+P 3.374 3.4842 3.152 3.1231 I 3.5162 3.4120 3.601 3.5124 D 0.0179 0.0181 0.0165 0.
+01846 
+
+The repulsion force provided by the motor drive is proportional to the maximum tilt deviation during tilting of the device, which is related to: 
+𝐹1 = 𝐾𝑃 · 𝑒 (𝜃 ) (3) 
+where 𝐾𝑃  is the proportionality constant of the equilibrium position stabilized proportional differential control system.
+01846 
+
 电机驱动提供的排斥力与设备倾斜过程中的最大倾斜偏差成正比，与以下相关：𝐹1 = 𝐾𝑃 · 𝑒 (𝜃 ) (3)，其中 𝐾𝑃 是保持平衡的比例微分控制系统的比例常数。
 
- However, when the system receives a large external influence, resulting in a large error in the drive voltage and desired torque, it will make the system reply force applied lagging resulting in a large overshoot error, in this part of the design using differential D control system, so that it introduces a damping force proportional to the speed and desired torque and opposite to the reply force 𝐹𝑓 2 That is: 𝐹𝑓 = 𝐾𝑑 d𝑒 (𝜃 ) d𝑡 (4) where 𝐾𝑑 is the differential constant of the equilibrium position stabilized PD control system.
-Thus there is: 𝐹2 = F + 𝐹𝑓 = 𝐾𝑃 · 𝑒 (𝜃 ) + 𝐾𝑑 d𝑒 (𝜃 ) d𝑡 (5) The timing system control period set by the system module is 20ms.
+However, when the system receives a large external influence, resulting in a large error in the drive voltage and desired torque, it will make the system reply force applied lagging resulting in a large overshoot error, in this part of the design using differential D control system, so that it introduces a damping force proportional to the speed and desired torque and opposite to the reply force 𝐹𝑓 2 
+That is: 𝐹𝑓 = 𝐾𝑑 d𝑒 (𝜃 ) d𝑡 (4) 
+where 𝐾𝑑  is the differential constant of the equilibrium position stabilized PD control system.
+Thus there is: 𝐹2 = F + 𝐹𝑓 = 𝐾𝑃 · 𝑒 (𝜃 ) + 𝐾𝑑 d𝑒 (𝜃 ) d𝑡 (5) 
+The timing system control period set by the system module is 20ms.
 after system modeling and several practical tests, the PID coefficients finally selected for this system are shown in Table 1, where the left and right motors are driven at different times and torques for stabilization, straight ahead and steering, and the corresponding coefficients are set respectively.
-3.
+
 然而，当系统受到大的外部影响时，驱动电压和期望扭矩出现较大误差，系统会产生滞后的响应力，导致较大的超调误差，在设计的这一部分中使用差分D控制系统，使其引入与速度和期望扭矩成比例且与响应力相反的阻尼力𝐹𝑓。
 即：𝐹𝑓 = 𝐾𝑑 d𝑒 (𝜃 ) / d𝑡 (4)，其中𝐾𝑑是平衡位置稳定PD控制系统的差分常数。
 因此有：𝐹2 = F + 𝐹𝑓 = 𝐾𝑃 · 𝑒 (𝜃 ) + 𝐾𝑑 d𝑒 (𝜃 ) / d𝑡 (5)。
 系统模块设置的定时控制周期为20毫秒。
 经过系统建模和多次实际测试，最终选择了该系统的PID系数如表1所示，其中左右电机在不同时间和扭矩下用于稳定、直行和转向，并分别设置了相应的系数。
 
-5 Overall software design The system threshold is set according to the normal value range of different assessment indexes, which is achieved by setting the Figure 7: Block diagram design of the upper computer pro- gram criteria of different assessment indexes.
+3.5 Overall software design 
+The system threshold is set according to the normal value range of different assessment indexes, which is achieved by setting the criteria of different assessment indexes.
 CO and SO2 are used as pollution gas detection objects, and the alarm threshold of the system is set to 30010-6.
 When the gas volume fraction reaches 10010-6, the system starts to detect the presence of pollution gas and displays the pollution gas concentration information at the terminal display in real time; when the pollution gas volume fraction exceeds 30010-6, the alarm light starts to light up and the data is prompted by GSM communication The data is stored.
 The following figure shows the display and alarm of the terminal in the simulated situation.
-5整体软件设计系统阈值根据不同评估指标的正常值范围来设置，这是通过设置不同评估指标的上位计算机程序的要求来实现的。
+
+图7：上位机程序的块图设计
+Figure 7: Block diagram design of the upper computer program
+
+3.5整体软件设计
+系统阈值根据不同评估指标的正常值范围来设置，这是通过设置不同的评估指标的标准来实现的。
 CO和SO2被用作污染气体检测对象，系统的报警阈值设置为30010-6。
-当气体体积分数达到10010-6时，系统开始检测污染气体的存在，并实时显示终端显示器上的污染气体浓度信息；当污染气体体积分数超过30010-6时，报警灯开始亮起，并通过GSM通信提示数据。
 下图显示了模拟情况下终端的显示和报警情况。
 
- The interactive interface of the terminal can display the current fluctuation of the pollutant gas, and the line graph can clearly show the change of the pollutant gas concentration in different areas during the air detection process.
+The interactive interface of the terminal can display the current fluctuation of the pollutant gas, and the line graph can clearly show the change of the pollutant gas concentration in different areas during the air detection process.
 The specific monitoring interface is shown in Figure 7.
-As can be seen from Figure 8 below, in order to ensure the normal communication between the upper computer and the lower computer, we first need to configure the VISA protocol and the 791 STM32-based Integrated UAV Air Monitoring System CNIOT ’23, May 26–28, 2023, Xiamen, China regions and height of the air pollution situation through the graph to display, the system specific monitoring effect is shown in Figure 9(right).
-5 CONCLUSION This paper designs an integrated pollution and air monitoring sys- tem based on STM32 according to the current air detection problems.
+As can be seen from Figure 8 below, in order to ensure the normal communication between the upper computer and the lower computer, we first need to configure the VISA protocol and the 
+serial port control, and set the corresponding parameters, including
+baud rate, serial port number, number of bits sent, stop bit and
+parity bit. At the same time, in order to improve the stability of
+the serial port reading data, each time the program is executed,
+the above parameters are assigned initial values. The serial port
+read control needs to be configured to set the number of accepted
+bytes to 8 bits in order to receive the value of int type sent by the
+microcontroller. Finally, the read data is stored in the read buffer
+and output to the next link.
 终端的交互界面可以显示污染气体的当前波动，并且折线图可以清楚地展示空气检测过程中不同区域内污染气体浓度的变化。
 具体的监测界面如图7所示。
-如下图8所示，为了确保上位机与下位机之间的正常通信，我们首先需要配置VISA协议和基于STM32的综合型无人机空气监测系统CNIOT '23，2023年5月26日至28日，中国厦门地区和空气污染情况的高度，通过图形展示，系统具体监测效果如图9（右侧）所示。
- 结论：本文根据当前的空气检测问题，设计了一种基于STM32的综合污染和空气监测系统。
+从下面的图8可以看出，为了确保上位机和下位机之间的正常通信，我们首先需要配置VISA协议和串口控制，并设置相应的参数，包括波特率、串口号、发送比特数、停止位和奇偶校验位。同时，为了提高串口读取数据的稳定性，在每次程序执行时，以上参数被赋予初始值。串口读取控制需要配置以接收int类型由微控制器发送的值，将接受字节数设置为8个比特。最后，读取到的数据存储在读缓冲区中并输出到下一个连接点。
 
- The system designs an integrated multi-pollution index air moni- toring system, which can complete the high-precision detection of a variety of air pollution gases.
+4 SYSTEM VALIDATION
+Through system design, monitoring parameters can be selected
+according to actual requirements, such as TSP, PM2.5, PM10 and
+other particulate matter parameters and CO, O 3 , SO 2 , NO 2 , VOC
+and other gas parameters. Meanwhile, STM32’s integrated UAV air
+monitoring system can detect height, location, pollutant distribu-
+tion concentration and other data. At the same time, the monitoring
+system is convenient in operation, accurate in measurement, reli-
+able in operation, light in volume and small in size, which provides
+an effective monitoring means for the analysis of air quality in three-
+dimensional space. The implementation scheme of this system is
+shown in Figure 9(left). First, the designated monitoring area is se-
+lected and the pollution gas is monitored by the monitoring system
+carried by the UAV. The monitoring data is transmitted wirelessly
+through the GSM communication system to ensure the stability,
+accuracy and real-time performance of the system transmission.
+4 系统验证
+通过系统设计，可以根据实际需求选择监测参数，如TSP、PM2.5、PM10和其他颗粒物参数以及CO、O3、SO2、NO2、VOC等气体参数。同时，STM32集成的无人机空气监测系统可以检测高度、位置、污染物分布浓度等数据。同时，该监测系统操作方便，测量准确可靠，在体积上轻巧小巧，为三维空间内的空气质量分析提供了有效的监测手段。该系统的实施方案如图9（左）所示。首先选择指定的监测区域，并由无人机携带的监测系统对污染气体进行监测。通过GSM通信系统将监测数据无线传输，以确保系统传输的稳定性、准确性和实时性。
+
+In the PC terminal design the upper computer to receive the
+transmission signal, through the threshold value of the system
+selected to achieve the monitoring of the normal value of different
+assessment indicators, while in the PC terminal will be different
+regions and height of the air pollution situation through the graph to display, the system specific monitoring effect is shown in Figure 9(right).
+在PC终端设计中，上位机接收传输信号，通过系统选择的阈值实现对不同评估指标正常值的监测。同时，在PC终端上通过图表显示不同地区和高度的空气污染情况，具体监测效果如图9（右侧）所示。
+
+
+5 CONCLUSION 
+This paper designs an integrated pollution and air monitoring system based on STM32 according to the current air detection problems.
+The system designs an integrated multi-pollution index air monitoring system, which can complete the high-precision detection of a variety of air pollution gases.
 By carrying the air detection system on the UAV, the monitoring of air pollution at different heights can be realized with high flexibility and stability.
 The detected data of different air pollution indicators can be transmitted to the PC through the wireless transmission system.
-It can be visually con- verted into a two-dimensional graph for analysis and processing.
+It can be visually converted into a two-dimensional graph for analysis and processing.
 The curve of air pollution gas concentration change after treatment can be viewed in the remote computer upper computer.
 The recent fluctuation of pollution gas concentration can be viewed through the terminal upper computer and the current type and specific concentration of pollution gas can be displayed at the same time, which has a good application prospect.
+
+5 结论
+本文根据当前的空气检测问题，设计了一种基于STM32的综合污染和空气监测系统。
 该系统设计了一个综合多污染指数空气监测系统，可以对多种空气污染气体进行高精度检测。
 通过将空气检测系统搭载在无人机上，可以实现对不同高度的空气污染进行高度灵活和稳定的监测。
 不同空气污染指标的检测数据可以通过无线传输系统传输到电脑上。
@@ -281,7 +360,8 @@ The recent fluctuation of pollution gas concentration can be viewed through the 
 治理后的空气污染气体浓度变化曲线可以在远程电脑上查看。
 通过终端上位机可以查看污染气体浓度的近期波动，并同时显示当前污染气体的类型和具体浓度，具有广阔的应用前景。
 
- ACKNOWLEDGMENTS This research was supported by Independent Innovation Research Fund Project of Wuhan University of Technology (Fund number: 236805007) REFERENCES [1] WANG Shiyu.
+ACKNOWLEDGMENTS 
+This research was supported by Independent Innovation Research Fund Project of Wuhan University of Technology (Fund number: 236805007) REFERENCES [1] WANG Shiyu.
 Research on Information Collection and Trajectory Planning Strategy of UAV Based on Aerodynamics [J].
 Beijing university of posts and telecommunications, 2021.
 [2] XU X L.
