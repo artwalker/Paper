@@ -361,7 +361,12 @@ The recent fluctuation of pollution gas concentration can be viewed through the 
 通过终端上位机可以查看污染气体浓度的近期波动，并同时显示当前污染气体的类型和具体浓度，具有广阔的应用前景。
 
 ACKNOWLEDGMENTS 
-This research was supported by Independent Innovation Research Fund Project of Wuhan University of Technology (Fund number: 236805007) REFERENCES [1] WANG Shiyu.
+This research was supported by Independent Innovation Research Fund Project of Wuhan University of Technology (Fund number: 236805007) 
+鉴谢
+本研究得到了武汉理工大学自主创新研究基金项目的支持（基金编号：236805007）。
+
+REFERENCES 
+[1] WANG Shiyu.
 Research on Information Collection and Trajectory Planning Strategy of UAV Based on Aerodynamics [J].
 Beijing university of posts and telecommunications, 2021.
 [2] XU X L.
@@ -376,10 +381,6 @@ China university of measurement, 2020.
 [5] XIE Tao.
 Design of Multi-parameter Air Quality Detection System Based on Four-rotor UAV [J].
 Anhui University of Science and Technology,2019.
-[6] Chen H S.
-Research and application of PM_ (2.
-鉴谢
-本研究得到了武汉理工大学自主创新研究基金项目的支持（基金编号：236805007）。
 
 
 参考文献
@@ -403,9 +404,8 @@ Research and application of PM_ (2.
 基于四旋翼无人机的多参数空气质量检测系统设计[J]。
 安徽科技学院，2019。
 
-[6] 陈洪生。
-PM2.
-5) and its precursors concentration monitoring system based on UAV [J].
+[6] Chen H S.
+Research and application of PM_ (2.5) and its precursors concentration monitoring system based on UAV [J].
 China university of measurement, 2019.
 [7] YAN Fenfen.
 Research and Design of Environmental Air Detection Device based on quadrotor aircraft [J].
@@ -421,7 +421,9 @@ Research on Indoor Air Monitoring System Based on Embedded Linux [J].
 Huazhong University of Science and Technology,2013.
 Figure 8: Serial port reading serial port control, and set the corresponding parameters, including baud rate, serial port number, number of bits sent, stop bit and parity bit.
 At the same time, in order to improve the stability of the serial port reading data, each time the program is executed, the above parameters are assigned initial values.
-5) 基于无人机的前体气体浓度监测系统[J]。
+
+[6] 陈洪生。
+基于无人机的PM_（2.5）及其前体浓度监测系统的研究与应用 [J]。
 中国计量大学，2019年。
 [7] 闫芬芬。
 基于四旋翼飞行器的环境空气检测装置的研究与设计[J]。
@@ -435,24 +437,4 @@ At the same time, in order to improve the stability of the serial port reading d
 [10] 于克胜。
 基于嵌入式Linux的室内空气监测系统研究[J]。
 华中科技大学，2013年。
- 图8：串口读取串口控制，并设置相应的参数，包括波特率，串口号，发送位数，停止位和校验位。
-同时，为了提高串口读取数据的稳定性，每次执行程序时，上述参数都被赋予初始值。
-
- The serial port read control needs to be configured to set the number of accepted bytes to 8 bits in order to receive the value of int type sent by the microcontroller.
-Finally, the read data is stored in the read buffer and output to the next link.
-4 SYSTEM VALIDATION Through system design, monitoring parameters can be selected according to actual requirements, such as TSP, PM2.5, PM10 and other particulate matter parameters and CO, O3, SO2, NO2, VOC and other gas parameters.
-Meanwhile, STM32’s integrated UAV air monitoring system can detect height, location, pollutant distribu- tion concentration and other data.
-At the same time, the monitoring system is convenient in operation, accurate in measurement, reli- able in operation, light in volume and small in size, which provides an effective monitoring means for the analysis of air quality in three- dimensional space.
-The implementation scheme of this system is shown in Figure 9(left).
-串口读取控制需要进行配置，将接受的字节数设置为8位，以便接收微控制器发送的int类型值。
-最后，读取的数据存储在读取缓冲区，并输出到下一个链接。
-4 系统验证通过系统设计，可以根据实际需求选择监测参数，如TSP、PM2.5、PM10和其他颗粒物参数，以及CO、O3、SO2、NO2、VOC和其他气体参数。
-同时，STM32集成的无人机空气监测系统可以检测高度、位置、污染物分布浓度等数据。
-同时，该监测系统操作方便、测量准确、可靠运行、体积轻小，为三维空间内的空气质量分析提供了有效的监测手段。
-该系统的实施方案如图9（左）所示。
-
- First, the designated monitoring area is se- lected and the pollution gas is monitored by the monitoring system carried by the UAV.
-The monitoring data is transmitted wirelessly through the GSM communication system to ensure the stability, accuracy and real-time performance of the system transmission.
-首先，选择指定的监测区域，并通过无人机携带的监测系统监测污染气体。
-监测数据通过GSM通信系统进行无线传输，以确保系统传输的稳定性、准确性和实时性。
 
